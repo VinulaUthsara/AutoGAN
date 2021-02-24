@@ -25,8 +25,12 @@ logger = logging.getLogger(__name__)
 def train_shared(args, gen_net: nn.Module, dis_net: nn.Module, g_loss_history, d_loss_history, controller, gen_optimizer
                  , dis_optimizer, train_loader, prev_hiddens=None, prev_archs=None):
     dynamic_reset = False
+
+    logger.info("")
     logger.info('=> train shared GAN...')
     logger.info('===> Initiating Conditional Architecture Search <===')
+    logger.info("")
+
     step = 0
     gen_step = 0
 
@@ -188,7 +192,11 @@ def train(args, gen_net: nn.Module, dis_net: nn.Module, gen_optimizer, dis_optim
 
 
 def train_controller(args, controller, ctrl_optimizer, gen_net, prev_hiddens, prev_archs, writer_dict):
-    logger.info("=> Training Search Controller...")
+
+    logger.info("")
+    logger.info("=> Training Search Controller <=")
+    logger.info("")
+
     writer = writer_dict['writer']
     baseline = None
 
@@ -297,13 +305,15 @@ def validate(args, fixed_z, fid_stat, gen_net: nn.Module, writer_dict, clean_dir
         img_list.extend(list(gen_imgs))
 
     # get inception score
-    logger.infor("")
+    logger.info("")
     logger.info('Inception Score')
     mean, std = get_inception_score(img_list)
     print(f"Inception Score: {mean}")
 
     # get fid score
-    logger.info('=> Calculating FID Score')
+    logger.info("")
+    logger.info('=> Calculating FID Score <=')
+    logger.info("")
     fid_score = calculate_fid_given_paths([fid_buffer_dir, fid_stat], inception_path=None)
     print(f"FID score: {fid_score}")
 
