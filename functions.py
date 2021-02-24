@@ -272,6 +272,7 @@ def get_is(args, gen_net: nn.Module, num_img):
         img_list.extend(list(gen_imgs))
 
     # get inception score
+    logger.info("")
     logger.info('=> Calculating Inception Score <=')
     mean, std = get_inception_score(img_list)
 
