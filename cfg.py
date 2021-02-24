@@ -1,11 +1,4 @@
-# -*- coding: utf-8 -*-
-# @Date    : 2019-07-25
-# @Author  : Xinyu Gong (xy_gong@tamu.edu)
-# @Link    : None
-# @Version : 0.0
-
 import argparse
-
 
 def str2bool(v):
     if v.lower() in ('yes', 'true', 't', 'y', '1'):
