@@ -262,7 +262,7 @@ def get_is(args, gen_net: nn.Module, num_img):
         img_list.extend(list(gen_imgs))
 
     # get inception score
-    logger.info('=> Calculating Inception score...')
+    logger.info('=> Calculating Inception Score <=')
     mean, std = get_inception_score(img_list)
 
     return mean
@@ -297,9 +297,10 @@ def validate(args, fixed_z, fid_stat, gen_net: nn.Module, writer_dict, clean_dir
         img_list.extend(list(gen_imgs))
 
     # get inception score
-    logger.info('=> Calculating Inception Score')
+    logger.infor("")
+    logger.info('Inception Score')
     mean, std = get_inception_score(img_list)
-    print(f"Inception score: {mean}")
+    print(f"Inception Score: {mean}")
 
     # get fid score
     logger.info('=> Calculating FID Score')
