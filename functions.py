@@ -26,6 +26,7 @@ def train_shared(args, gen_net: nn.Module, dis_net: nn.Module, g_loss_history, d
                  , dis_optimizer, train_loader, prev_hiddens=None, prev_archs=None):
     dynamic_reset = False
     logger.info('=> train shared GAN...')
+    logger.info('===> Initiating Conditional Architecture Search <===')
     step = 0
     gen_step = 0
 
@@ -187,7 +188,7 @@ def train(args, gen_net: nn.Module, dis_net: nn.Module, gen_optimizer, dis_optim
 
 
 def train_controller(args, controller, ctrl_optimizer, gen_net, prev_hiddens, prev_archs, writer_dict):
-    logger.info("=> train controller...")
+    logger.info("=> Training Search Controller...")
     writer = writer_dict['writer']
     baseline = None
 
@@ -261,7 +262,7 @@ def get_is(args, gen_net: nn.Module, num_img):
         img_list.extend(list(gen_imgs))
 
     # get inception score
-    logger.info('calculate Inception score...')
+    logger.info('=> Calculating Inception score...')
     mean, std = get_inception_score(img_list)
 
     return mean
@@ -296,12 +297,12 @@ def validate(args, fixed_z, fid_stat, gen_net: nn.Module, writer_dict, clean_dir
         img_list.extend(list(gen_imgs))
 
     # get inception score
-    logger.info('=> calculate inception score')
+    logger.info('=> Calculating Inception Score')
     mean, std = get_inception_score(img_list)
     print(f"Inception score: {mean}")
 
     # get fid score
-    logger.info('=> calculate fid score')
+    logger.info('=> Calculating FID Score')
     fid_score = calculate_fid_given_paths([fid_buffer_dir, fid_stat], inception_path=None)
     print(f"FID score: {fid_score}")
 
