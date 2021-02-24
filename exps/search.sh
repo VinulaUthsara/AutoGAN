@@ -29,4 +29,4 @@ python search.py \
 --grow_step2 35 \
 --max_search_iter 65 \
 --ctrl_step 30 \
---exp_name autogan_search
+--exp_name search
