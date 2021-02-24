@@ -28,7 +28,7 @@ def train_shared(args, gen_net: nn.Module, dis_net: nn.Module, g_loss_history, d
 
     logger.info("")
     #logger.info('=> Training Shared GAN <=')
-    logger.info('===> Initiating Conditional Architecture Search <===')
+    logger.info('===>  Searching Conditional Architecture...  <===')
     logger.info("")
 
     step = 0
