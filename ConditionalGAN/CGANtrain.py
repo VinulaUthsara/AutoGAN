@@ -10,8 +10,8 @@ y = np.concatenate((y1, y2), axis=0)
 
 del x1, y1, x2, y2
 
-pip uninstall scipy
-pip install scipy==1.1.0
+! pip uninstall scipy
+! pip install scipy==1.1.0
 
 import time
 from scipy.misc import imshow
@@ -171,9 +171,5 @@ def sample_images(epoch):
             cnt += 1
     fig.savefig("images/%d.png" % epoch)
     plt.close()
-
-
-mkdir images
-mkdir weights
 
 train(2000)
