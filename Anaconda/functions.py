@@ -21,7 +21,7 @@ def train_shared(args, gen_net: nn.Module, dis_net: nn.Module, g_loss_history, d
     dynamic_reset = False
 
     logger.info("")
-    logger.info('===>  Searching Conditional Architectures...  <===')
+    logger.info('===>  Searching Semi-supervised Architectures...  <===')
     logger.info("")
 
     step = 0
