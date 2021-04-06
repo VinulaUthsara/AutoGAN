@@ -1,9 +1,3 @@
-# -*- coding: utf-8 -*-
-# @Date    : 2019-07-25
-# @Author  : Xinyu Gong (xy_gong@tamu.edu)
-# @Link    : None
-# @Version : 0.0
-
 import logging
 import operator
 import os
@@ -25,7 +19,11 @@ logger = logging.getLogger(__name__)
 def train_shared(args, gen_net: nn.Module, dis_net: nn.Module, g_loss_history, d_loss_history, controller, gen_optimizer
                  , dis_optimizer, train_loader, prev_hiddens=None, prev_archs=None):
     dynamic_reset = False
-    logger.info('=> train shared GAN...')
+
+    logger.info("")
+    logger.info('===>  Searching Conditional Architectures...  <===')
+    logger.info("")
+
     step = 0
     gen_step = 0
 
@@ -187,7 +185,11 @@ def train(args, gen_net: nn.Module, dis_net: nn.Module, gen_optimizer, dis_optim
 
 
 def train_controller(args, controller, ctrl_optimizer, gen_net, prev_hiddens, prev_archs, writer_dict):
-    logger.info("=> train controller...")
+
+    logger.info("")
+    logger.info("=> Training Search Controller <=")
+    logger.info("")
+
     writer = writer_dict['writer']
     baseline = None
 
@@ -207,7 +209,9 @@ def train_controller(args, controller, ctrl_optimizer, gen_net, prev_hiddens, pr
             logger.info(f'arch: {arch}')
             gen_net.set_arch(arch, cur_stage)
             is_score = get_is(args, gen_net, args.rl_num_eval_img)
+            logger.info("")
             logger.info(f'get Inception score of {is_score}')
+            logger.info("")
             cur_batch_rewards.append(is_score)
         cur_batch_rewards = torch.tensor(cur_batch_rewards, requires_grad=False).cuda()
         cur_batch_rewards = cur_batch_rewards.unsqueeze(-1) + args.entropy_coeff * entropies  # bs * 1
@@ -261,7 +265,8 @@ def get_is(args, gen_net: nn.Module, num_img):
         img_list.extend(list(gen_imgs))
 
     # get inception score
-    logger.info('calculate Inception score...')
+    logger.info("")
+    logger.info('=> Calculating Inception Score <=')
     mean, std = get_inception_score(img_list)
 
     return mean
@@ -296,12 +301,15 @@ def validate(args, fixed_z, fid_stat, gen_net: nn.Module, writer_dict, clean_dir
         img_list.extend(list(gen_imgs))
 
     # get inception score
-    logger.info('=> calculate inception score')
+    logger.info("")
+    logger.info('Inception Score')
     mean, std = get_inception_score(img_list)
-    print(f"Inception score: {mean}")
+    print(f"Inception Score: {mean}")
 
     # get fid score
-    logger.info('=> calculate fid score')
+    logger.info("")
+    logger.info('=> Calculating FID Score <=')
+    logger.info("")
     fid_score = calculate_fid_given_paths([fid_buffer_dir, fid_stat], inception_path=None)
     print(f"FID score: {fid_score}")
 
